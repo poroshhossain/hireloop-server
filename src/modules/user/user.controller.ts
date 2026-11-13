@@ -1,22 +1,17 @@
 import type { Request, Response } from "express";
+import { connectToMongoDB } from "../../config/database.js";
 
-let usersDB = [
-  {
-    id: 1,
-    name: "Porosh",
-    email: "porosh@example.com",
-  },
-  {
-    id: 2,
-    name: "Rahim",
-    email: "rahim@example.com",
-  },
-];
+
+
+const db = await connectToMongoDB();
+const userCollection = db?.collection("user");
+
+
 
 
 // GET: All users
-export const getUsers = (req: Request, res: Response) => {
-  const users = usersDB;
+export const getUsers = async(req: Request, res: Response) => {
+  const users = await userCollection?.find({}).toArray() ;
 
   res.status(200).json({
     success: true,

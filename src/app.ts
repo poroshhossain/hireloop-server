@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import useRouter from "./modules/user/user.route.js";
+import jobRouter from "./modules/recruiter/jobs/jobs.route.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/v1/users", useRouter);
+app.use("/api/v1/jobs", jobRouter);
 
 
 export default app;
